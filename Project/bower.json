@@ -1,0 +1,23 @@
+{
+  "name": "Django Project",
+  "authors": [
+    "saputraacacoi <saputrat27@gmail.com>"
+  ],
+  "description": "Python Django Project WebApp",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "admin-lte": "adminlte#^2.4.2"
+  }
+}
