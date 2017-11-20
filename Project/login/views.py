@@ -7,7 +7,7 @@ from django.contrib import messages
 
 class LoginView(View):
     def get(self, request):
-        template = 'login/index.html'
+        template = 'login/dashboard.html'
         
         data = {
         }
