@@ -13,6 +13,7 @@ PROJECT_APPS = [
 
     'member',
     'orm',
+    'login',
 ]
 
 REQUIRED_APPS = [
