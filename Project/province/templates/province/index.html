@@ -27,6 +27,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>ID</th>
                     <th>Nama</th>
                     <th>Aksi</th>
                 </tr>
@@ -34,10 +35,11 @@
             <tbody>
                 {% for pr in province %}
                 <tr>
+                    <td>{{forloop.counter}}</td>
                     <td>{{pr.id}}</td>
                     <td>{{pr.name}}</td>
                     <td>
-                        
+
                         <a href="{% url 'province:edit' pr.id %}" class="btn btn-warning">
                             <i class="fa fa-edit"></i>
                         </a>
