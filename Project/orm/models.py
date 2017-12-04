@@ -4,14 +4,24 @@ import time
 import os
 
 
-class CityDistrict(models.Model):
+class Province(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        db_table = 'city_district'
+        db_table = 'province'
+        ordering = ['id']
+
+class CityRegency(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'city_regency'
         ordering = ['id']
 
 
@@ -20,7 +30,7 @@ class Club(models.Model):
     register_number = models.CharField(max_length=100, blank=True, null=True)
     since = models.CharField(max_length=100, blank=True, null=True)
     secretariat = models.TextField(blank=True, null=True)
-    city_district = models.ForeignKey(CityDistrict, on_delete=models.CASCADE, related_name='clubs', blank=True, null=True)
+    city_regency = models.ForeignKey(CityRegency, on_delete=models.CASCADE, related_name='clubs', blank=True, null=True)
     leader = models.CharField(max_length=100, blank=True, null=True)
     slogan = models.TextField(blank=True, null=True)
     # logo = models.ImageField(upload_to="club/logo",
@@ -42,7 +52,6 @@ class Club(models.Model):
 class Member(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='members')
-
     name = models.CharField(max_length=50, blank=True, null=True)
     adress = models.TextField(blank=True, null=True)
     gender = models.CharField(max_length=15, blank=True, null=True)

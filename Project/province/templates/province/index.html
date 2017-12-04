@@ -1,0 +1,84 @@
+{% extends 'layout/dashboard/index.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+        <section class="content-header">
+                <h1>
+                  Province
+                  <small>Template</small>
+                </h1>
+                <ol class="breadcrumb">
+                  <li><a href="#"><i class="fa fa-dashboard"></i> Province</a></li>
+                  <li class="active">Template</li>
+                  
+                </ol>
+              </section>
+    <section class="content">
+<div class="box">
+        <div class="box-body">
+            <div class="box-header">
+                    <h3 class="box-title">Data Province</h3> &nbsp;
+                    <a href="{% url 'province:tambah' %}" class="btn btn-sm btn-primary">
+                            <i class="fa fa-plus"></i> Add</a>
+                </div>
+                
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pr in province %}
+                <tr>
+                    <td>{{pr.id}}</td>
+                    <td>{{pr.name}}</td>
+                    <td>
+                        
+                        <a href="{% url 'province:edit' pr.id %}" class="btn btn-warning">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{pr.id}}">
+                                <i class="fa fa-trash"></i>
+                        </button>
+
+                 <!-- Modal -->
+                        <div class="modal fade" id="myModal{{pr.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-md" role="document">
+                                <div class="modal-content">
+                                     <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Konfirmasi Penghapusan</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah anda yakin ingin menghapus Province dengan nama <b>{{pr.name}}</b> dan id <b>{{pr.id}}</b>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                    <a href="{% url 'province:hapus' id=pr.id %}" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i> Hapus
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+
+    </section>  
+</div>
+<script type="text/javascript">
+  $('#example1').DataTable();
+</script>
+{% endblock %}

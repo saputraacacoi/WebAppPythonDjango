@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_list_or_404
 from django.views.generic import View
+from django.contrib import messages
 from django.http import HttpResponse
 
 class TestView(View):

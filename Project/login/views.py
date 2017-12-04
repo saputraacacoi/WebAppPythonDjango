@@ -44,7 +44,7 @@ class DoLoginView(View):
                     else:
                         settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-                    return redirect('member:tpl')
+                    return redirect('province:view')
                 else:
                     state = "Akun Anda tidak Aktiv silahkan tanya pada Administrator Web Anda."
                     messages.add_message(request, messages.ERROR, state)

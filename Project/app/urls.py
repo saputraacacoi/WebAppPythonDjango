@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^province/', include('province.urls', namespace='province')),
     url(r'^member/', include('member.urls', namespace='member')),
-    url(r'^login/', include('login.urls', namespace='login')),    
+    url(r'^', include('login.urls', namespace='login')),
 ]
+
+urlpatterns +=  staticfiles_urlpatterns()
+
+

@@ -9,6 +9,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '10.10.1.88',
+    'saputra.itec.loc',
 ]
 
 PROJECT_APPS = [
@@ -16,9 +17,13 @@ PROJECT_APPS = [
     'member',
     'orm',
     'login',
+    'province',
 ]
 
 REQUIRED_APPS = [
+    'material',
+    'material.frontend',
+    'material.admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -26,6 +31,8 @@ REQUIRED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'bootstrap4',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
