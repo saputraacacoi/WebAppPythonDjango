@@ -4,8 +4,12 @@ from django.http import HttpResponse
 from django.contrib import messages
 from orm.models import Province
 from province.forms import ProvinceForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ListProvinceView(View):
+class HarusLogin(LoginRequiredMixin):
+    login_url = 'login:view'
+
+class ListProvinceView(HarusLogin,View):
     def get(self, request):
         template = 'province/index.html'
         province = Province.objects.all()
@@ -14,7 +18,7 @@ class ListProvinceView(View):
         }
         return render(request, template, data)
 
-class AddProvinceView(View):
+class AddProvinceView(HarusLogin,View):
     def get(self, request):
         template = 'province/add_province.html'
 
@@ -25,7 +29,7 @@ class AddProvinceView(View):
 
         return render(request, template, data)
 
-class SaveProvinceView(View):
+class SaveProvinceView(HarusLogin,View):
     
     def post(self, request):
         template = 'province/add_province.html'
@@ -48,7 +52,7 @@ class SaveProvinceView(View):
 
             return render(request, template, data)
 
-class EditProvinceView(View):
+class EditProvinceView(HarusLogin,View):
     template = 'province/edit_province.html'
 
     def get(self, request, id):
@@ -65,7 +69,7 @@ class EditProvinceView(View):
         return render(request, self.template, data)
 
 
-class UpdateProvinceView(View):
+class UpdateProvinceView(HarusLogin,View):
 
     def post(self, request):
 
@@ -78,7 +82,7 @@ class UpdateProvinceView(View):
             return redirect('/province/')
 
 
-class HapusProvinceView(View):
+class HapusProvinceView(HarusLogin,View):
 
     def get(self, request, id):
         province = Province.objects.get(pk=id)

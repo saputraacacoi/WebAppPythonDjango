@@ -18,6 +18,7 @@ PROJECT_APPS = [
     'orm',
     'login',
     'province',
+    'cityregency',
 ]
 
 REQUIRED_APPS = [
