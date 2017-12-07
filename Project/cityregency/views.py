@@ -3,6 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.contrib import messages
 from orm.models import CityRegency
+from orm.models import Province
 from django.contrib.auth.mixins import LoginRequiredMixin
 from cityregency.forms import CityRegencyForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,12 +13,18 @@ class HarusLogin(LoginRequiredMixin):
 
 class ListCityRegencyView(HarusLogin,View):
     def get(self, request):
+
         template = 'cityregency/index.html'
+        province = Province.objects.all()
         cityregency = CityRegency.objects.all()
+
         data = {
+
+            'province' : province,
             'cityregency' : cityregency ,
         }
         return render(request, template, data)
+
 class AddCityRegencyView(HarusLogin,View):
     def get(self, request):
         template = 'cityregency/add_cityregency.html'

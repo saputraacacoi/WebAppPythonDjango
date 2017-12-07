@@ -30,8 +30,8 @@
                         {% csrf_token %}
                           <div class="box-body">
                             <div class="form-group">
-                              <label for="exampleInputEmail1">Nama</label>
-                              {{form.name | add_class:"form-control"}}
+                              <label for="exampleInputEmail1" class="control-label">Nama</label>
+                              {{form.name | add_class:"form-control" |append_attr:"placeholder:Input Province (Provinsi)"}}
                             </div>
                           </div>
                           <!-- /.box-body -->            

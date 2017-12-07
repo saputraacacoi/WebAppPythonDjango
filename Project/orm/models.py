@@ -15,6 +15,7 @@ class Province(models.Model):
         ordering = ['id']
 
 class CityRegency(models.Model):
+    province = models.ForeignKey(Province, on_delete=models.CASCADE, related_name='cityregencys', blank=True, null=True)    
     name = models.CharField(max_length=100)
 
     def __str__(self):
