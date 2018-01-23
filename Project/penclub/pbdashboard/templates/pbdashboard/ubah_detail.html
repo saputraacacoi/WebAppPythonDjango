@@ -1,4 +1,6 @@
-{% extends 'layout/penclub/index.html' %} {% block content %}
+{% extends 'layout/penclub/index.html' %} 
+{% load widget_tweaks %}
+{% block content %}
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -17,7 +19,7 @@
 
     <section class="content">
         <div class="row">
-            <div class="col-sm-9 col-md-offset-2">
+            <div class="col-md-9 col-md-offset-2">
                 <div class="box box-success">
                     <div class="box-header with-border">
                         Edit Info Klub
@@ -25,62 +27,64 @@
                     <div class="box-body">
                         <div class="col-md-3 col-sm-3">
                             <img src="/media/{{request.user.anggota.club.logo}}" id="logo" alt="" style="width: 100%; height: auto; border: 1px #d5d8dc solid; margin-top: 6px;">
-                            <button class="btn btn-success btn-block" style="margin-top: 8px; margin-bottom: 8px;" onclick="document.getElementById('fileInput').click();">Upload Logo <i class="fa fa-upload"></i></button>
+                            <button class="btn btn-success btn-block" style="margin-top: 8px; margin-bottom: 8px;" onclick="document.getElementById('fileInput').click();">Upload Logo
+                                <i class="fa fa-upload"></i>
+                            </button>
                         </div>
                         <div class="col-md-9 col-sm-9">
-                            <form action="." method="POST" enctype="multipart/form-data">
+                            <form action="{% url 'pbdashboard:update' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label for="" class="control-label">Nama Klub</label>
                                     <input type="text" class="form-control" name="name" value="{{request.user.anggota.club.name}}">
                                 </div>
-        
+
                                 <div class="form-group">
                                     <label for="" class="control-label">No. Registrasi PERPANI</label>
                                     <input type="text" class="form-control" name="register_number" value="{{request.user.anggota.club.register_number}}">
                                 </div>
-        
+
                                 <div class="form-group">
                                     <label for="" class="control-label">Semboyan Klub</label>
                                     <textarea name="slogan" rows="3" class="form-control">{{request.user.anggota.club.slogan}}</textarea>
                                 </div>
-        
+
                                 <div class="form-group">
                                     <label for="" class="control-label">Tanggal Berdirinya Klub</label>
-                                    <input type="date" class="form-control" name="since" value="{{request.user.anggota.club.since}}">
+                                    <input type="text" id="date-since" class="form-control" name="since" value="{{request.user.anggota.club.since}}">
                                 </div>
-        
+
                                 <div class="form-group">
                                     <label for="" class="control-label">Alamat Sekretariat</label>
                                     <textarea name="secretariat" rows="3" class="form-control">{{request.user.anggota.club.secretariat}}</textarea>
                                 </div>
-        
-                                <div class="form-group">
-                                    <label for="" class="control-label">Kab./Kota Asal</label>
-                                    <select name="city" id="" class="form-control">
-                                        <option value="">Pilih Kab./Kota Asal</option>
-                                        <option value="">-----------------------------</option>
-                                        {% for city in citys %}
-                                            <option value="{{city.pk}}" {% ifequal request.user.anggota.club.city city  %} selected {% endifequal %}>{{city.name}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-        
-                                <div class="form-group">
 
-                                <label for="" class="control-label">Nama Ketua</label>
+                                    <div class="form-group">
+                                        <label for="" class="control-label">Kab./Kota Asal</label>
+                                        <select name="cityregency" id="" class="form-control">
+                                            <option value="">Pilih Kab./Kota Asal</option>
+                                            <option value="">-----------------------------</option>
+                                            {% for city in citys %}
+                                                <option value="{{city.pk}}" {% ifequal request.user.anggota.club.cityregency city  %} selected {% endifequal %}>{{city.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Nama Ketua</label>
                                     <input type="text" class="form-control" name="leader" value="{{request.user.anggota.club.leader}}">
                                 </div>
-        
+
                                 <div class="form-group">
                                     <input id="fileInput" name='logo' type="file" style="display:none;" accept="image/*" />
                                 </div>
-        
+
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-success pull-right" style="margin-left: 8px;">Simpan</button>
-                                    <a href="{% url 'pbdashboard:detail' %}" class="btn btn-danger pull-right"><i class="fa fa-arrow-left"></i> Kembali</a>
+                                    <a href="{% url 'pbdashboard:detail' %}" class="btn btn-danger pull-right">
+                                        <i class="fa fa-arrow-left"></i> Kembali</a>
                                 </div>
-        
+
                             </form>
                         </div>
                     </div>
@@ -91,6 +95,8 @@
 </div>
 
 <script>
+    $('#date-since').datepicker();
+
     function readURL(input) {
 
         if (input.files && input.files[0]) {
@@ -107,6 +113,4 @@
     $("#fileInput").change(function () {
         readURL(this);
     });
-</script>
-
-{% endblock%}
+</script> {% endblock%}

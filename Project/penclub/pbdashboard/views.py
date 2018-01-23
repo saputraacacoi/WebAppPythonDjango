@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from library.views import PenClubAccessView
 from orm.models import Club,CityRegency,Anggota
-from penclub.pbdashboard.forms import PenClubForm
+from penclub.pbdashboard.forms import ClubForm
 from penclub.pbdashboard import helpers
 
 def getTotalClub():
@@ -32,7 +32,7 @@ def getTotalAnggota():
 
 class ListPenClubView(PenClubAccessView):
     def get(self, request):
-        form = PenClubForm(request.POST or None)
+        form = ClubForm(request.POST or None)
         template = 'pbdashboard/index.html'
         data = {
             'form_mode': 'add',
@@ -66,3 +66,25 @@ class UbahClub(View):
         }
         return render(request, template, data)
 
+class UpdateView(View):
+    def post(self, request):
+        club = request.user.anggota.club
+        form = ClubForm(request.POST, request.FILES)
+        if form.is_valid():
+            club.user = request.user
+            cityregency = CityRegency.objects.get(pk=request.POST['cityregency'])
+            club.cityregency =  cityregency
+            club.name = form.cleaned_data['name']
+            club.register_number = form.cleaned_data['register_number']
+            club.since = form.cleaned_data['since']
+            club.secretariat = form.cleaned_data['secretariat']
+            club.leader = form.cleaned_data['leader']
+            club.slogan = form.cleaned_data['slogan']
+            newlogo = form.cleaned_data.get('logo', None)
+            if not newlogo == None:
+                club.logo = newlogo
+            club.save(force_update=True)
+
+            return redirect('pbdashboard:detail')
+        else:
+            return redirect('pbdashboard:edit')

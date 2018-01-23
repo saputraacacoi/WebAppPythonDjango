@@ -1,10 +1,15 @@
 from django import forms
-from orm.models import PenClub
+from orm.models import CityRegency, Club
 
-class PenClubForm(forms.Form):
-    
-    id = forms.CharField(required=False, widget=forms.HiddenInput())
+
+class ClubForm(forms.Form):
     name = forms.CharField(max_length=100)
-    
+    register_number = forms.CharField(max_length=100)
+    since = forms.CharField(max_length=100)
+    secretariat = forms.CharField()
+    leader = forms.CharField(max_length=100)
+    slogan = forms.CharField()
+    logo = forms.ImageField(required=False)
+
     class Meta:
-        model = PenClub
+        model = Club
