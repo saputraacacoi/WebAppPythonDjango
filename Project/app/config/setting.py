@@ -43,6 +43,7 @@ REQUIRED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'debug_toolbar',
+    'versatileimagefield',
 ]
 
 MIDDLEWARE = [
