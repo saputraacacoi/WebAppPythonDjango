@@ -45,6 +45,24 @@ class ListPenClubView(PenClubAccessView):
 class DetailClub(View):
     def get(self, request):
         template = 'pbdashboard/detail.html'
+        club = request.user.anggota.club
         data = {
+            'menu' : 'club',
+            'anggota':{
+                'total': club.anggotas.all().count(),
+                'coach_total': club.anggotas.all().filter(position='Coach').count(),
+                'male_total': club.anggotas.filter(gender='Pria').count(),
+                'female_total': club.anggotas.filter(gender='Wanita').count(),
+            }    
         }
         return render(request, template, data)
+
+class UbahClub(View):
+    def get(self, request):
+        template = 'pbdashboard/ubah_detail.html'
+        data = {
+            'citys': CityRegency.objects.all(),
+            
+        }
+        return render(request, template, data)
+

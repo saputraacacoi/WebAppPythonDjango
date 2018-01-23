@@ -6,3 +6,14 @@ def HelpersPenclub(label, data):
         }]
     }
     return out
+
+def TestGrafikGender(dataTitle, data, label):
+    out = {
+        'labels': label,
+        'datasets' : [{
+            'label' : dataTitle,
+            'data'  : data
+            
+        }]
+    }
+    return out

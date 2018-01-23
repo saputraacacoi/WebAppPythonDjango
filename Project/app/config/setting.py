@@ -68,5 +68,6 @@ from app.config.auth import *
 from app.config.database import *
 from app.config.international import *
 from app.config.static import *
+from app.config.media import *
 django.setup()
 from app.config.template import *

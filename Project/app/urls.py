@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 from app.config import setting
 import debug_toolbar
 
@@ -32,5 +33,5 @@ urlpatterns = [
 ]
 
 urlpatterns +=  staticfiles_urlpatterns()
-
+urlpatterns += static(setting.MEDIA_URL, document_root=setting.MEDIA_ROOT)
 

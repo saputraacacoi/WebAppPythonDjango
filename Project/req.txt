@@ -50,3 +50,4 @@ webencodings==0.5.1
 widgetsnbextension==3.0.6
 django-braces
 django-versatileimagefield
+debug_toolbar
