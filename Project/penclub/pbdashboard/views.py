@@ -4,9 +4,11 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from library.views import PenClubAccessView
-from orm.models import Club,CityRegency,Anggota
-from penclub.pbdashboard.forms import ClubForm
+from orm.models import Club, CityRegency, Anggota,  ClubFiles
 from penclub.pbdashboard import helpers
+from penclub.pbdashboard.forms import ClubForm, BerkasForm
+import mimetypes
+import os
 
 def getTotalClub():
     label = []
@@ -88,3 +90,42 @@ class UpdateView(View):
             return redirect('pbdashboard:detail')
         else:
             return redirect('pbdashboard:edit')
+
+class BerkasView(View):
+    def get(self, request):
+        template = 'pbdashboard/berkas.html'
+        form = BerkasForm(request.POST, request.FILES)
+        data = {
+            'form': form
+        }
+        return render(request, template, data)
+
+class BerkasUploadView(View):
+    def post(self, request):
+        form = BerkasForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            club_file = ClubFiles()
+            club_file.club = request.user.anggota.club
+            club_file.file = form.cleaned_data['file']
+            club_file.mimetype = mimetypes.guess_type(
+                club_file.file.name)[0].split('/')[0]
+            club_file.file_ext = mimetypes.guess_type(
+                club_file.file.name)[0].split('/')[1]
+            club_file.filename = club_file.file.name
+
+            club_file.save()
+
+            return HttpResponse('Success')
+        return redirect('pbdashboard:documents')
+
+class HapusBerkasView(View):
+    
+    def get(self, request, pk):
+        obj = ClubFiles.objects.get(pk=pk)
+        if obj:
+            img_url = os.path.join(os.getcwd(), obj.file.url[1:])
+            obj.delete()
+            if os.path.exists(img_url):
+                os.remove(img_url)
+                
+            return redirect('pbdashboard:documents')

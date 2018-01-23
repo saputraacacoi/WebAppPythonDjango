@@ -1,5 +1,5 @@
 from django import forms
-from orm.models import CityRegency, Club
+from orm.models import CityRegency, Club, ClubFiles
 
 
 class ClubForm(forms.Form):
@@ -13,3 +13,9 @@ class ClubForm(forms.Form):
 
     class Meta:
         model = Club
+
+class BerkasForm(forms.Form):
+    file = forms.FileField()
+
+    class Meta:
+        model = ClubFiles
