@@ -1,0 +1,41 @@
+{% extends 'layout/dashboard/index.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+        <section class="content-header">
+                <h1>
+                 Penjualan Retail
+                  <small>Template</small>
+                </h1>
+                <ol class="breadcrumb">
+                  <li><a href="#"><i class="fa fa-dashboard"></i> Penjualan</a></li>
+                  <li class="active">Template</li>
+                  
+                </ol>
+              </section>
+
+    <section class="content">
+
+        <div class="row">
+                {% include 'province/grafik.html' %}
+        </div>
+                
+
+        <div class="row">
+                <div class="col-sm-4">
+                        {% include 'province/form.html' %}
+                </div>
+        
+                <div class="col-sm-8">
+                        {% include 'province/tabel.html' %}
+                </div>
+        </div>
+    </section>  
+</div>
+
+<script type="text/javascript">
+    $('#example1').DataTable();
+  </script>
+{% endblock %}
+     

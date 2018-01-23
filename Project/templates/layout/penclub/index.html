@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% include 'layout/penclub/head.html'%}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+    {% include 'layout/penclub/header.html'%}
+    {% include 'layout/penclub/sidebar.html'%}    
+    {% block content %} {% endblock %}
+    {% include 'layout/penclub/footer.html' %}
+    </div>
+</body>
+</html>

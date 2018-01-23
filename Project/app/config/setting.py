@@ -3,6 +3,9 @@ import os, django
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
+
 SECRET_KEY = 'e^r=(#ble-w)ji@_!a3otik+d=ht&#$=$aqwzmhx^on3c$e$ev'
 DEBUG = True
 ALLOWED_HOSTS = [
@@ -14,11 +17,16 @@ ALLOWED_HOSTS = [
 
 PROJECT_APPS = [
 
-    'member',
     'orm',
     'login',
-    'province',
-    'cityregency',
+    'management.province',
+    'management.cityregency',
+    'management.club',
+    'library',
+    
+    'pencab.pgdashboard',
+    'penclub.pbdashboard',
+    'anggota.adashboard',
 ]
 
 REQUIRED_APPS = [
@@ -34,9 +42,11 @@ REQUIRED_APPS = [
     'django_extensions',
     'bootstrap4',
     'widget_tweaks',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -44,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+      
 ]
 
 INSTALLED_APPS = REQUIRED_APPS + PROJECT_APPS

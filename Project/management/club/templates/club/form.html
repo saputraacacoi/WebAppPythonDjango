@@ -1,0 +1,86 @@
+{% load widget_tweaks %}
+<div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Add City Regency</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        {% if form_mode == 'add' %}
+        <form role="form" method="POST" action="{% url 'club:simpan' %}">
+        {% else %}   
+        <form  role="form" action="{% url 'club:update' %}" method="POST"> 
+                <input type="hidden" name="id" value="{{id}}" class="form-control">
+        {% endif %}
+        {% csrf_token %}
+
+
+        <div class="box-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="control-label">CityRegency</label>
+            {{form.cityregency | add_class:"form-control" |append_attr:"placeholder:Input City Regency (Kabupaten)"}}
+          </div>
+        </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label">Club</label>
+              {{form.name | add_class:"form-control" |append_attr:"placeholder:Input Club"}}
+            </div>
+          </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label">Register Number</label>
+              {{form.register_number | add_class:"form-control" |append_attr:"placeholder:Input Register Number"}}
+            </div>
+          </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label">Bergabung</label>
+              {{form.since | add_class:"form-control" |append_attr:"placeholder:Input City Since"}}
+            </div>
+          </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label">Sekretariat</label>
+              {{form.secretariat| add_class:"form-control" |append_attr:"placeholder:Input Sekretariat"}}
+            </div>
+          </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label">ketua</label>
+              {{form.leader| add_class:"form-control" |append_attr:"placeholder:Input Ketua (Leader)"}}
+            </div>
+          </div>
+
+          <div class="box-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="control-label">Slogan</label>
+              {{form.slogan| add_class:"form-control" |append_attr:"placeholder:Input Slogan (Slogan)"}}
+            </div>
+          </div>
+
+          <!-- /.box-body -->            
+         <div class="box-footer">
+            <button type="submit" class="btn btn-primary">
+                {% if form_mode == 'add' %}
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+                {% else %}
+                <i class="fa fa-refresh" aria-hidden="true"></i> Update
+                {% endif %}
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+      {% if messages %}
+      {% for message in messages %}
+      <script>
+          toastr.success('{{message}}')
+      </script>
+      {% endfor %}
+  {% endif %}

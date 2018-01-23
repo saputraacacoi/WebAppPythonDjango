@@ -1,0 +1,125 @@
+<div class="row">
+
+    <div class="col-md-6">
+            <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Grafik Penjualan Bulanan</h3>
+        
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <div class="chart">
+                        <canvas id="myChart" style="height: 261px; width: 495px;" width="495" height="261"></canvas>
+                      </div>
+                    </div>
+        </div>
+
+        <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">jenis Kelamin</h3>
+    
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <canvas id="genderChart" style="height: 257px; width: 515px;" width="515" height="257"></canvas>
+                </div>
+                <!-- /.box-body -->
+              </div>
+</div>
+
+<div class="col-md-6">
+
+
+    <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Barang Terjual Berdasarkan Kategori</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <canvas id="testChart" style="height: 257px; width: 515px;" width="515" height="257"></canvas>
+            </div>
+            <!-- /.box-body -->
+          </div>
+
+</div>
+
+</div>
+{% block js %}
+
+
+<script>
+    var bgColor = [
+        'rgba(255, 206, 86, 0.7)',
+        'rgba(75, 192, 192, 0.7)',
+        'rgba(153, 102, 255, 0.7)',
+        'rgba(153, 45, 89, 0.7)',
+        'rgba(19, 102, 13, 0.7)',
+        'rgba(5, 237, 255, 0.7)',
+        'rgba(8, 155, 255, 0.7)',
+        'rgba(114, 114, 255, 0.7)',
+        'rgba(155, 55, 1, 0.7)',
+        'rgba(237, 34, 255, 0.7)',
+    ]
+
+    var ctxContainer = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctxContainer, {
+            type: 'bar',
+            data: {
+                    labels: {{lineChart.labels | safe}},
+                    datasets: [{
+                            label: '{{lineChart.datasets.0.label}}',
+                            data: {{lineChart.datasets.0.data}},
+                            borderWidth: 1,
+                            backgroundColor: bgColor
+                    }]
+            },
+            options: '',  
+    });
+
+
+    var ctxContainer = document.getElementById('testChart').getContext('2d');
+    var testChart = new Chart(ctxContainer, {
+            type: 'polarArea',
+            data: {
+                    labels: {{TestGrafikLine.labels | safe}},
+                    datasets: [{
+                            label: '{{TestGrafikLine.datasets.0.label}}',
+                            data: {{TestGrafikLine.datasets.0.data}},
+                            borderWidth: 1,
+                            backgroundColor: bgColor
+                    }]
+            },
+            options: '',
+    });
+
+    var ctxContainer = document.getElementById('genderChart').getContext('2d');
+    var genderChart = new Chart(ctxContainer, {
+            type: 'pie',
+            data: {
+                    labels: {{TestGrafikGender.labels | safe}},
+                    datasets: [{
+                            label: '{{TestGrafikGender.datasets.0.label}}',
+                            data: {{TestGrafikGender.datasets.0.data | safe}},
+                            borderWidth: 1,
+                            backgroundColor: bgColor
+                    }]
+            },
+            options: '',
+    });
+
+</script>
+{% endblock js %}
+    

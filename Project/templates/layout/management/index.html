@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% include 'layout/management/head.html'%}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+    {% include 'layout/management/header.html'%}
+    {% include 'layout/management/sidebar.html'%}
+    {% block content %} {% endblock %}
+    {% include 'layout/management/footer.html' %}
+    </div>
+</body>
+</html>

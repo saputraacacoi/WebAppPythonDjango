@@ -1,0 +1,61 @@
+<div class="box">
+        <div class="box-body">
+            <div class="box-header">
+                    <h3 class="box-title">Barang</h3> 
+                </div>      
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pr in province %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{pr.id}}</td>
+                    <td>{{pr.name}}</td>
+                    <td>
+
+                        <a href="{% url 'province:edit' pr.id %}" class="btn btn-warning">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{pr.id}}">
+                                <i class="fa fa-trash"></i>
+                        </button>
+
+                 <!-- Modal -->
+                        <div class="modal fade" id="myModal{{pr.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-md" role="document">
+                                <div class="modal-content">
+                                     <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Konfirmasi Penghapusan</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah anda yakin ingin menghapus Barang dengan nama <b>{{pr.name}}</b> dan id <b>{{pr.id}}</b>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                    <a href="{% url 'province:hapus' id=pr.id %}" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i> Hapus
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </td>
+                </tr>
+                {% endfor %}       
+            </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      
+

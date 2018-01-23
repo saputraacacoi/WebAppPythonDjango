@@ -7,6 +7,7 @@ from login.forms import AuthenticateForm
 from django.contrib import messages
 from django.conf import settings
 from login.forms import AuthenticateForm
+from library import authcheck
 
 
 class LoginView(View):
@@ -33,24 +34,29 @@ class DoLoginView(View):
             user = authenticate(username=username, password=password) 
             
             if user is not None:
-                if user.is_active:
-                    # login
-                    login(request, user) 
-
-                    # checkbox remember 
-                    if not remember:
-                        settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-                        request.session.set_expiry(0)
-                    else:
-                        settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-                    return redirect('province:view')
+                # checkbox remember 
+                if not remember:
+                    settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+                    request.session.set_expiry(0)
                 else:
-                    state = "Akun Anda tidak Aktiv silahkan tanya pada Administrator Web Anda."
+                    settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+                if authcheck.AuthCheck.isSuperUser(user):
+                    login(request, user)
+                    return redirect('province:view') 
+                elif authcheck.AuthCheck.isPenCab(user):
+                    login(request, user)
+                    return redirect('pgdashboard:view') 
+                elif authcheck.AuthCheck.isPenClub(user):
+                    login(request, user)
+                    return redirect('pbdashboard:view') 
+                else:
+                    state = "Akun Anda tidak Aktiv terdaftar."
                     messages.add_message(request, messages.ERROR, state)
             else:
                 state = "Login Gagal, Username atau Password Anda Salah!."
                 messages.add_message(request, messages.ERROR, state)
+
         data  = {
             'form': form
         }

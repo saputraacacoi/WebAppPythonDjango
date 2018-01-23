@@ -1,0 +1,36 @@
+{% extends 'layout/pencab/index.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+        <section class="content-header">
+                <h1>
+                 Pengurus Cabang
+                  <small>Template</small>
+                </h1>
+                <ol class="breadcrumb">
+                  <li><a href="#"><i class="fa fa-dashboard"></i> Pengurus Cabang</a></li>
+                  <li class="active">Template</li>
+                  
+                </ol>
+              </section>
+
+    <section class="content">
+
+        <div class="row">
+                <div class="col-sm-4">
+                        {% include 'pgdashboard/form.html' %}
+                </div>
+        
+                <div class="col-sm-8">
+                        {% include 'pgdashboard/tabel.html' %}
+                </div>
+        </div>
+    </section>  
+</div>
+
+<script type="text/javascript">
+    $('#example1').DataTable();
+  </script>
+{% endblock %}
+     
