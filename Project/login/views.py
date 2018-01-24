@@ -8,14 +8,50 @@ from django.contrib import messages
 from django.conf import settings
 from login.forms import AuthenticateForm
 from library import authcheck
+from login import helpers
+from orm.models import Club, CityRegency, Anggota
 
+def getTotalClub():
+    label = []
+    data = []
+    crall = CityRegency.objects.all()
+    for cr in crall:
+        label.append(cr.name)
+        c = len(Club.objects.filter(cityregency__name=cr.name))
+        data.append(c)
+    lc = helpers.HelpersPenclub(label, data)
+    return lc
+
+def getTotalAnggota():
+    label = []
+    data = []
+    cball = Club.objects.all()
+    for cr in cball:
+        label.append(cr.name)
+        c = len(Anggota.objects.filter(club__name=cr.name))
+        data.append(c)
+    lc = helpers.HelpersPenclub(label, data)
+    return lc
 
 class LoginView(View):
     def get(self, request):
         template = 'login.html'
         form = AuthenticateForm(request.POST or None)
+        club_anggota_labels = [club.name for club in Club.objects.all()]
+        club_anggota_values = [club.anggotas.count() for club in Club.objects.all()]
         data  = {
-            'form': form
+            'form': form,
+            'TotalClub' : getTotalClub(),
+            'TotalAnggota' : getTotalAnggota(), 
+            'club': {
+                'total': Club.objects.all().count(),
+                'labels': club_anggota_labels,
+                'member_count': club_anggota_values,
+            },
+            'anggota': {
+                'total': Anggota.objects.all().count(),
+                'coach_total': Anggota.objects.filter(position='Coach').count()
+            },
         }
         return render(request, template, data)
 
@@ -49,7 +85,7 @@ class DoLoginView(View):
                     return redirect('pgdashboard:view') 
                 elif authcheck.AuthCheck.isPenClub(user):
                     login(request, user)
-                    return redirect('pbdashboard:view') 
+                    return redirect('pbdashboard:detail') 
                 else:
                     state = "Akun Anda tidak Aktiv terdaftar."
                     messages.add_message(request, messages.ERROR, state)
@@ -58,7 +94,7 @@ class DoLoginView(View):
                 messages.add_message(request, messages.ERROR, state)
 
         data  = {
-            'form': form
+            'form': form,
         }
         return render(request, template, data)
         

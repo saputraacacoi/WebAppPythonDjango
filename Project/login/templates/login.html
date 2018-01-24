@@ -1,67 +1,175 @@
 {% extends 'layout/login/index.html' %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
 {% block content %} 
-
-{% if messages %}
-
-
-
-<div style="margin:5% auto; width:360px; margin-bottom:0px; padding-bottom:0px; ">
-    <div class="callout callout-danger">
-        <h4>Error</h4>
-        {% for message in messages %} {{ message }} {% endfor %}
-    </div>
-</div>
-{% endif %} 
-
-{% if messages %}
-<div class="login-box" style="margin-top:10px;">
-    {% else %}
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="">
-                <b>CV Roland    </b> </a>
-        </div>
-        {% endif %}
-        <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-            <form action="{% url 'login:doLogin' %}" method="POST">
-                {% csrf_token %} {% if is_redirect %}
-                <input type="hidden" value="{{redirect_to}}" name="redirect_to"> {% endif %}
-                <div class="form-group has-feedback">
-                    <input name="username" type="username" class="form-control" placeholder="Username">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input name="password" type="password" class="form-control" placeholder="Password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
+<div class="content-wrapper">
+        <section class="content-header">
+            <div class="container">
+                <h2>PERPANI NTB</h2>
+                <h6 style="text-align: justify"></h6>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container">
                 <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                              <div class="form-group">
-                                <label>
-                                  <input type="checkbox" class="minimal"> Remember
-                                </label> 
-                              </div>
-                            </label>
-                          </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                    </div>
-                </div>
-            </form>
+                    <div class="col-md-3 col-md-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-blue"><i class="fa fa-users"></i></span>
 
-            <p></p>
-            <p class="pull-right">
-                <a href="#">Lost My Password?</a>
-                <br>
-            </p>
-            <span class="clear"></span>
-            <br>
-        </div>
-    </div>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Klub</span>
+                                <span class="info-box-number">{{club.total}}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-md-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Pemanah</span>
+                                <span class="info-box-number">{{anggota.total}}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+
+                    <div class="col-md-3 col-md-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Pelatih</span>
+                                <span class="info-box-number">{{anggota.coach_total}}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-md-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">New Members</span>
+                                <span class="info-box-number">2,000</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <div class="col-md-6">
+                        <div>  
+                              <div class="box box-danger">
+                                      <div class="box-header with-border">
+                                        <h3 class="box-title">Statistik Klub Berdasarkan Kab./Kota</h3>
+                          
+                                        <div class="box-tools pull-right">
+                                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                          </button>
+                                          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                        </div>
+                                      </div>
+                                      <div class="box-body">
+                                        <canvas id="myChart" style="height: 257px; width: 515px;" width="515" height="257"></canvas>
+                                      </div>
+                                      <!-- /.box-body -->
+                                    </div>    
+                          </div>    
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <div>  
+                              <div class="box box-danger">
+                                      <div class="box-header with-border">
+                                        <h3 class="box-title">Statistik Berdasarkan Anggota Terdaftar per Klub</h3>
+                          
+                                        <div class="box-tools pull-right">
+                                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                          </button>
+                                          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                        </div>
+                                      </div>
+                                      <div class="box-body">
+                                        <canvas id="AnggotaChart" style="height: 257px; width: 515px;" width="515" height="257"></canvas>
+                                      </div>
+                                      <!-- /.box-body -->
+                                    </div>    
+                          </div>    
+                      </div>
+                      
+    {% block js %}
+    <script>
+        var bgColor = [
+            'rgba(255, 206, 86, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(153, 102, 255, 0.7)',
+            'rgba(153, 45, 89, 0.7)',
+            'rgba(19, 102, 13, 0.7)',
+            'rgba(5, 237, 255, 0.7)',
+            'rgba(8, 155, 255, 0.7)',
+            'rgba(114, 114, 255, 0.7)',
+            'rgba(155, 55, 1, 0.7)',
+            'rgba(237, 34, 255, 0.7)',
+        ]
+    
+        var ctxContainer = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctxContainer, {
+                type: 'pie',
+                data : {
+                datasets: [{
+                    data: {{TotalClub.datasets.0.data | safe}},
+                    backgroundColor: bgColor
+                }],
+            
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: {{TotalClub.labels | safe }}
+                },
+                options: '',  
+        });
+
+        var ctxContainer = document.getElementById('AnggotaChart').getContext('2d');
+        var AnggotaChart = new Chart(ctxContainer, {
+                type: 'polarArea',
+                data : {
+                datasets: [{
+                    data: {{TotalAnggota.datasets.0.data | safe}},
+                    backgroundColor: bgColor
+                }],
+            
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: {{TotalAnggota.labels | safe }}
+                },
+                options: '',  
+        });
 
     
-    {% endblock %}
+</script>
+{% endblock js %} {% endblock %}
+</body>
+{% include "base/footer.html" %}
+</html>
+
+
+
+
+
+

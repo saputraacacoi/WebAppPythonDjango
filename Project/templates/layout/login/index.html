@@ -1,11 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
    {% include 'layout/login/head.html'%}
 </head>
-<body class="hold-transition login-page">
-    <div class="wrapper" style="height: auto; min-height: 100%;">
-    {% block content %} {% endblock %}
+<body class="hold-transition skin-blue layout-top-nav">
+    <div class="content-wrapper">
+    {% include 'layout/login/header.html'%}
+    <section class="row">
+            {% block content %} {% endblock %}
+    </section>
     </div>
 </body>
+<div class="row">
+        {% include 'layout/login/footer.html'%}   
+</div>
 </html>

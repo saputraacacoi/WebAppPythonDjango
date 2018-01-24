@@ -5,32 +5,9 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from library.views import PenClubAccessView
 from orm.models import Club, CityRegency, Anggota,  ClubFiles
-from penclub.pbdashboard import helpers
 from penclub.pbdashboard.forms import ClubForm, BerkasForm
 import mimetypes
 import os
-
-def getTotalClub():
-    label = []
-    data = []
-    crall = CityRegency.objects.all()
-    for cr in crall:
-        label.append(cr.name)
-        c = len(Club.objects.filter(cityregency__name=cr.name))
-        data.append(c)
-    lc = helpers.HelpersPenclub(label, data)
-    return lc
-
-def getTotalAnggota():
-    label = []
-    data = []
-    cball = Club.objects.all()
-    for cr in cball:
-        label.append(cr.name)
-        c = len(Anggota.objects.filter(club__name=cr.name))
-        data.append(c)
-    lc = helpers.HelpersPenclub(label, data)
-    return lc
 
 class ListPenClubView(PenClubAccessView):
     def get(self, request):
@@ -39,12 +16,10 @@ class ListPenClubView(PenClubAccessView):
         data = {
             'form_mode': 'add',
             'form' : form,
-            'TotalClub' : getTotalClub(),
-            'TotalAnggota' : getTotalAnggota(),
         }
         return render(request, template, data)
 
-class DetailClub(View):
+class DetailClub(PenClubAccessView):
     def get(self, request):
         template = 'pbdashboard/detail.html'
         club = request.user.anggota.club
@@ -59,7 +34,7 @@ class DetailClub(View):
         }
         return render(request, template, data)
 
-class UbahClub(View):
+class UbahClub(PenClubAccessView):
     def get(self, request):
         template = 'pbdashboard/ubah_detail.html'
         data = {
@@ -68,7 +43,7 @@ class UbahClub(View):
         }
         return render(request, template, data)
 
-class UpdateView(View):
+class UpdateView(PenClubAccessView):
     def post(self, request):
         club = request.user.anggota.club
         form = ClubForm(request.POST, request.FILES)
@@ -91,7 +66,7 @@ class UpdateView(View):
         else:
             return redirect('pbdashboard:edit')
 
-class BerkasView(View):
+class BerkasView(PenClubAccessView):
     def get(self, request):
         template = 'pbdashboard/berkas.html'
         form = BerkasForm(request.POST, request.FILES)
@@ -100,7 +75,7 @@ class BerkasView(View):
         }
         return render(request, template, data)
 
-class BerkasUploadView(View):
+class BerkasUploadView(PenClubAccessView):
     def post(self, request):
         form = BerkasForm(request.POST or None, request.FILES)
         if form.is_valid():
@@ -118,7 +93,7 @@ class BerkasUploadView(View):
             return HttpResponse('Success')
         return redirect('pbdashboard:documents')
 
-class HapusBerkasView(View):
+class HapusBerkasView(PenClubAccessView):
     
     def get(self, request, pk):
         obj = ClubFiles.objects.get(pk=pk)
