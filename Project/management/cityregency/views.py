@@ -5,13 +5,11 @@ from django.contrib import messages
 from orm.models import CityRegency, Province
 from django.contrib.auth.mixins import LoginRequiredMixin
 from management.cityregency.forms import CityRegencyForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from library.views import ManagementAccessView
 
 
 class ListCityRegencyView(ManagementAccessView):
     def get(self, request):
-
         form = CityRegencyForm(request.POST or None)
         template = 'cityregency/index.html'
         province = Province.objects.all()
@@ -26,7 +24,6 @@ class ListCityRegencyView(ManagementAccessView):
         return render(request, template, data)
 
 class SaveCityRegencyView(ManagementAccessView):
-    
     def post(self, request):
         template = 'cityregency/index.html'
         form = CityRegencyForm(request.POST or None)

@@ -1,0 +1,129 @@
+{% extends 'layout/penclub/index.html' %} {% load widget_tweaks %}{% block content %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Add Anggota
+            <small>Template</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> Add Anggota</a>
+            </li>
+            <li class="active">Template</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        Edit Anggota
+                    </div>
+                    <div class="box-body">
+                       <div class="col-md-3 col-sm-3">
+                    <button class="btn btn-success btn-block" style="margin-top: 8px; margin-bottom: 8px;" onclick="document.getElementById('fileInput').click();">Upload Gambar <i class="fa fa-upload"></i></button>
+                </div>
+                        <div class="col-md-9 col-sm-9">
+                            <form action="{% url 'pbdashboard:save_anggota' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label for="username">No. Registrasi Klub</label>
+                                    <input type="text" required name="username" value="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" required name="password" value="" class="form-control">
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="" class="control-label">Nama</label>
+                                    <input type="text" class="form-control" name="nama" value="" required>
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="" class="control-label">Alamat</label>
+                                        <textarea name="alamat" rows="3" class="form-control" required></textarea>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="" class="control-label">Jenis Kelamin</label>
+                                </div>
+                                <div class="form-group">
+                                    <input required type="radio" name="gender" value="pria"> Pria &nbsp; &nbsp; &nbsp;
+                                    <input required type="radio" name="gender" value="wanita"> Wanita
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="" class="control-label">Tanggal Lahir</label>
+                                    <input required type="text" id="date" class="form-control" name="tanggal_lahir" value="" readonly>
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="" class="control-label">No. HP</label>
+                                    <input required type="text" class="form-control" name="no_hp" value="">
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="" class="control-label">Panjang Tarikan (Inch)</label>
+                                    <input required type="number" step="any" class="form-control" name="panjang_tarikan" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Posisi Dalam Klub</label>
+                                    <select class="form-control" name="posisi">
+                                        <option value="Member">Anggota</option>
+                                        <option value="Coach">Coach</option>
+                                    </select>
+                                </div>
+
+                                 <div class="form-group">
+                                        <label for="" class="control-label">
+                                            Jadikan User Sebagai Pengelola
+                                        </label> &nbsp; <input type="checkbox" name="staff">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                            <input id="fileInput" name='picture' type="file" style="display:none;" accept="image/*" />
+                                    </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success pull-right" style="margin-left: 8px;">Simpan</button>
+                                    <a href="#" class="btn btn-danger pull-right">
+                                        <i class="fa fa-arrow-left"></i> Kembali</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $('#date').datepicker();
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#picture').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#fileInput").change(function () {
+        readURL(this);
+    });        
+</script>
+
+{% endblock%}

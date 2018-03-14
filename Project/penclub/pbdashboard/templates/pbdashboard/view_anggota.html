@@ -1,0 +1,50 @@
+{% extends 'layout/penclub/index.html' %} {% block content %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Detail Anggota
+            <small>Template</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Detail Anggota</a></li>
+            <li class="active">Template</li>
+        </ol>
+    </section>
+        <section class="content">
+            <div class="">
+                    <a href="{% url 'pbdashboard:add_anggota' %}" class="btn btn-info"> 
+                           <i class="fa fa-plus"></i> 
+                        </a>
+                <table id="example1" class="table table-responsive table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>User</th>
+                            <th>Posisi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                        {% for a in anggota %}
+                            <tr>
+                                <td>{{a.name}}</td>
+                                <td>{{a.user}}</td>
+                                <td>{{a.position}}</td>
+                                <td>
+                                    <a href="{% url 'pbdashboard:detail_anggota' a.pk %}" class="btn btn-info">
+                                            <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="{% url 'pbdashboard:hapus_anggota' id=a.id %}" class="btn btn-warning">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %} 
+                        </tbody>
+                </table>
+        </section>
+                </div>
+<script type="text/javascript">
+$('#example1').DataTable();
+</script>
+{% endblock %}

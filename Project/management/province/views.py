@@ -6,38 +6,10 @@ from orm.models import Province
 from management.province.forms import ProvinceForm
 from django.contrib.auth.mixins import LoginRequiredMixin   
 from library.views import ManagementAccessView
-from management.province import helpers
-from orm.models import TestGrafik
-
-def getLineChart():
-    dataTitle = 'Penjualan'
-    dt = [20,15,23,14,23,22,30,20,15,30,35,40]
-    lb = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Agust','Sept','Okto','Nov','Des']      
-    lc = helpers.lineChartHelper(dataTitle, dt, lb)
-    return lc
-
-def getTestGrafikLine():
-    all_test_grafik = TestGrafik.objects.all()
-    pbusur = all_test_grafik.filter(k_busur='Ya').count()
-    tpbusur = all_test_grafik.filter(k_busur='Tidak').count()
-    dataTitle = 'Total Penjualan PerItem'
-    dt = [pbusur,tpbusur]
-    lb = ['Sembako', 'Snack']  
-    lc = helpers.TestGrafikLine(dataTitle, dt, lb)
-    return lc
-
-def getTestGrafikGender():
-        all_test_gender = TestGrafik.objects.all()
-        pria = all_test_gender.filter(gender='Pria').count()
-        wanita = all_test_gender.filter(gender='Wanita').count()
-        dataTitle = 'Jenis Kelamin'
-        dt = [pria,wanita]
-        lb = ['Pria', 'Wanita']  
-        lc = helpers.TestGrafikGender(dataTitle, dt, lb)
-        return lc
     
 class ListProvinceView(ManagementAccessView):
-    def get(self, request):  
+    def get(self, request):
+          
         form = ProvinceForm(request.POST or None)
         template = 'province/index.html'
         province = Province.objects.all()
@@ -45,9 +17,6 @@ class ListProvinceView(ManagementAccessView):
             'form_mode': 'add',
             'province' : province,
             'form' : form,
-            'lineChart' : getLineChart(),
-            'TestGrafikLine' : getTestGrafikLine(),
-            'TestGrafikGender' : getTestGrafikGender(),
         }
         return render(request, template, data)
 
@@ -82,7 +51,6 @@ class EditProvinceView(ManagementAccessView):
         province = Province.objects.filter(id=id)
         if not province.exists():
             return redirect('province:view')
-
         province = province.first()
 
         initial = {

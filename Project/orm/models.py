@@ -39,7 +39,6 @@ class Club(models.Model):
                              null=True,
                              blank=True,
                              help_text="Upload Logo klub")
-    
     def __str__(self):
         return self.name                         
 
@@ -62,14 +61,11 @@ class Anggota(models.Model):
                             null=True,
                             blank=True,
                             help_text="Upload Potomu sebagai gambar profile",
-                            default='user/avatar.png'
+                            default='user/profile'
                             )
-
     def __str__(self):
         return self.name
 
-    class Meta:
-        db_table = 'anggota'
 
 class ClubFiles(models.Model):
     uploaded = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -86,15 +82,19 @@ class ClubFiles(models.Model):
     def __str__(self):
         return self.file.name
 
-
 class PenCab(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
 
 class PenClub(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 class TestGrafik(models.Model):
     nama = models.CharField(max_length=50, blank=True, null=True) 

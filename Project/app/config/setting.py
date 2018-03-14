@@ -26,7 +26,6 @@ PROJECT_APPS = [
     
     'pencab.pgdashboard',
     'penclub.pbdashboard',
-    'anggota.adashboard',
 ]
 
 REQUIRED_APPS = [

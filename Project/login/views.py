@@ -71,12 +71,13 @@ class DoLoginView(View):
             
             if user is not None:
                 # checkbox remember 
+                print(user.is_staff)
+                
                 if not remember:
                     settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
                     request.session.set_expiry(0)
                 else:
                     settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
                 if authcheck.AuthCheck.isSuperUser(user):
                     login(request, user)
                     return redirect('province:view') 

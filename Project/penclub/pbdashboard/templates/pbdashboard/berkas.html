@@ -50,7 +50,7 @@
                             <div role="tabpanel" class="tab-pane" id="profile" style="padding: 16px;">{% include "pbdashboard/berkas/dokumen.html" %}</div>
                         </div>
 
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,25 +65,25 @@
         parallelUploads: 13,
         acceptedFiles: ".pdf, .doc, .docx, .jpg, .jpeg, .png, .xls, .xlsx",
 
-        init: function () {
+        init: function() {
             var submitButton = document.querySelector("#submit-all")
             myDropzone = this;
 
-            submitButton.addEventListener("click", function () {
+            submitButton.addEventListener("click", function() {
                 myDropzone.processQueue();
                 // Tell Dropzone to process all queued files.
             });
 
             // You might want to show the submit button only when
             // files are dropped here:
-            this.on("addedfile", function () {
+            this.on("addedfile", function() {
                 // Show submit button here and/or inform user to click it.
             });
 
-            this.on('success', function () {
+            this.on('success', function() {
                 if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
                     toastr.success('Semua File Berhasil di Upload')
-                    setTimeout(function () {
+                    setTimeout(function() {
                         location.reload();
                     }, 1000)
                 }

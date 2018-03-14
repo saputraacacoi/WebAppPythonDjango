@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect, get_list_or_404
 from django.views.generic import View
 from django.http import HttpResponse
 from django.contrib import messages
-from orm.models import CityRegency
-from orm.models import Club
-from django.contrib.auth.mixins import LoginRequiredMixin
+from orm.models import CityRegency, Club
 from management.club.forms import ClubForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import LoginRequiredMixin
@@ -34,7 +32,6 @@ class SaveClubView(HarusLogin,View):
         template = 'club/index.html'
 
         form = ClubForm(request.POST or None)
-
         if form.is_valid():
             # dari ngambil data
             # sampai simpan data
