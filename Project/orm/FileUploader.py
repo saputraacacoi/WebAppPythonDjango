@@ -21,6 +21,19 @@ def file_club_thumbnail(instance, filename):
     filename = "thumbnail_%s_%s.%s" % (name, str(milis), ext)
     return 'club/docs/{0}/thumnail/{1}'.format(instance.club.id, filename)
 
+def file_cabang(instance, filename):
+    name, ext = filename.split('.')[0], filename.split('.')[-1]
+    milis = int(round(time.time()))
+    filename = "%s_%s.%s" % (name, str(milis), ext)
+    return 'cabang/docs/{0}/{1}'.format(instance.cabang.id, filename)
+
+
+def file_cabang_thumbnail(instance, filename):
+    name, ext = filename.split('.')[0], filename.split('.')[-1]
+    milis = int(round(time.time()))
+    filename = "thumbnail_%s_%s.%s" % (name, str(milis), ext)
+    return 'cabang/docs/{0}/thumnail/{1}'.format(instance.cabang.id, filename)
+
 
 def file_member(instance, filename):
     ext = filename.split('.')[-1]

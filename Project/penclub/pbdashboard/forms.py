@@ -38,8 +38,7 @@ class MemberForm(forms.Form):
     no_hp = forms.CharField(max_length=100)
     panjang_tarikan = forms.CharField(max_length=100)
     posisi = forms.CharField(max_length=100)
-    picture = forms.ImageField(required=False)
-
+    picture = forms.ImageField()
 
     class Meta:
         model = Anggota

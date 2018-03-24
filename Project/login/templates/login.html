@@ -116,6 +116,13 @@
                           </div>    
                       </div>
                       
+    
+    {% if messages %} {% for message in messages %} {% if message.tags == 'warning' %}
+    <script>
+        toastr.error('{{message}}')
+    </script>
+    {% endif %} {% endfor %} {% endif %}
+
     {% block js %}
     <script>
         var bgColor = [
@@ -161,7 +168,6 @@
                 options: '',  
         });
 
-    
 </script>
 {% endblock js %} {% endblock %}
 </body>

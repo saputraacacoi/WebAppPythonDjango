@@ -132,7 +132,7 @@ class AddAnggotaView(PenClubAccessView):
 
 class SaveAnggotaView(PenClubAccessView):
     def post(self, request):
-        anggota_form = MemberForm(request.POST or None)
+        anggota_form = MemberForm(request.POST or None, request.FILES)
 
         if anggota_form.is_valid():
             user = User()
@@ -164,9 +164,8 @@ class SaveAnggotaView(PenClubAccessView):
             anggota.phone = anggota_form.cleaned_data['no_hp']
             anggota.draw_length = anggota_form.cleaned_data['panjang_tarikan']
             anggota.position = anggota_form.cleaned_data['posisi']
-            newpic = anggota_form.cleaned_data.get('picture', None)
-            if not newpic == None:
-                user.profile = newpic
+            anggota.picture = anggota_form.cleaned_data['picture']
+       
             anggota.save()
             return redirect('pbdashboard:anggota')
         else:

@@ -1,4 +1,4 @@
-{% extends 'layout/penclub/index.html' %} {% load widget_tweaks %}{% block content %}
+{% extends 'layout/penclub/index.html' %} {% load staticfiles %}  {% load widget_tweaks %}{% block content %}
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -24,6 +24,7 @@
                     </div>
                     <div class="box-body">
                        <div class="col-md-3 col-sm-3">
+                            <img src="{% static 'images/avatar.png' %}" id="picture" alt="" style="width: 100%; height: auto;">
                     <button class="btn btn-success btn-block" style="margin-top: 8px; margin-bottom: 8px;" onclick="document.getElementById('fileInput').click();">Upload Gambar <i class="fa fa-upload"></i></button>
                 </div>
                         <div class="col-md-9 col-sm-9">
@@ -53,8 +54,8 @@
                                     <label for="" class="control-label">Jenis Kelamin</label>
                                 </div>
                                 <div class="form-group">
-                                    <input required type="radio" name="gender" value="pria"> Pria &nbsp; &nbsp; &nbsp;
-                                    <input required type="radio" name="gender" value="wanita"> Wanita
+                                    <input required type="radio" name="gender" value="Pria"> Pria &nbsp; &nbsp; &nbsp;
+                                    <input required type="radio" name="gender" value="Wanita"> Wanita
                                 </div>
         
                                 <div class="form-group">
@@ -125,5 +126,4 @@
         readURL(this);
     });        
 </script>
-
-{% endblock%}
+{%endblock%}

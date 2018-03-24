@@ -86,17 +86,18 @@ class DoLoginView(View):
                     return redirect('pgdashboard:view') 
                 elif authcheck.AuthCheck.isPenClub(user):
                     login(request, user)
-                    return redirect('pbdashboard:detail') 
+                    return redirect('pbdashboard:view') 
                 else:
-                    state = "Akun Anda tidak Aktiv terdaftar."
-                    messages.add_message(request, messages.ERROR, state)
+                     messages.add_message(request, messages.WARNING,
+                                 'Akun Belum Terdaftar Sebagai User !!')
             else:
-                state = "Login Gagal, Username atau Password Anda Salah!."
-                messages.add_message(request, messages.ERROR, state)
+                  messages.add_message(request, messages.WARNING,
+                                 'Username dan atau Password tidak ditemukan !!')
 
         data  = {
             'form': form,
         }
+        return redirect('login:view')
         return render(request, template, data)
         
 

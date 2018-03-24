@@ -2,7 +2,7 @@ from django.conf.urls import url
 from penclub.pbdashboard import views
 
 urlpatterns = [
-    url (r'^detail$', views.DetailClubView.as_view(), name='detail'),
+    url (r'^view$', views.DetailClubView.as_view(), name='view'),
     url (r'^edit$', views.UbahClubView.as_view(), name='edit'),
     url (r'^club/update$', views.UpdateClubView.as_view(), name='update'),
     url (r'^club/documents$', views.BerkasView.as_view(), name='documents'),

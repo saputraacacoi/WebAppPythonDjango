@@ -19,7 +19,7 @@
                     <td>{{c.cityregency.name}}</td>
                     <td>{{c.name}}</td>
                     <td>
-                        <a href="#" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        <a href="{% url 'club:edit' c.id %}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#myModal{{c.id}}">
                         <i class="fa fa-trash"></i>
                     </button>

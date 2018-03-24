@@ -22,6 +22,7 @@ PROJECT_APPS = [
     'management.province',
     'management.cityregency',
     'management.club',
+    'management.anggota',
     'library',
     
     'pencab.pgdashboard',
