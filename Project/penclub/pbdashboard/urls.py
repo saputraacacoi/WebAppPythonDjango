@@ -14,5 +14,7 @@ urlpatterns = [
     url (r'^detail_anggota/(?P<pk>\d+)$', views.DetailAnggotaView.as_view(), name='detail_anggota'),
     url (r'^add_anggota$', views.AddAnggotaView.as_view(), name='add_anggota'),
     url (r'^save_anggota$', views.SaveAnggotaView.as_view(), name='save_anggota'),
+    url (r'^ubah/(?P<pk>\d+)$', views.UbahAnggotaView.as_view(), name='ubah'),
+    url (r'^update/(?P<pk>\d+)$', views.UpdateAnggotaView.as_view(), name='update'),
     url(r'^hapus_anggota/(?P<id>\d+)$', views.HapusAnggotaView.as_view(), name='hapus_anggota'),
 ]

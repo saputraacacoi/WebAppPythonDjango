@@ -1,0 +1,137 @@
+{% extends 'layout/penclub/index.html' %} 
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Pengurus Club
+            <small>Template</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> Pengurus Club</a>
+            </li>
+            <li class="active">Template</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-9 col-md-offset-2">
+                <div class="box box-success">
+                    <div class="box-body">
+                        <div class="col-md-3 col-sm-3">
+                            <img src="{{anggota.picture.url}}" id="picture" alt="" style="width: 100%; height: auto; border: 1px #d5d8dc solid; margin-top: 6px;">
+                            <button class="btn btn-success btn-block" style="margin-top: 8px; margin-bottom: 8px;" onclick="document.getElementById('fileInput').click();">Upload Logo
+                                <i class="fa fa-upload"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <form action="{% url 'pbdashboard:update' anggota.pk %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">No. Registrasi PERPANI</label>
+                                    <input type="text" class="form-control" name="user" value="{{anggota.user.username}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" required id="password" name="password" disabled class="form-control" placeholder="Type Your Password ">
+                                        <span class="input-group-addon">
+                                    <input type="checkbox" id="passwd_change" name="passwd_change"> Ganti Password
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Nama</label>
+                                    <input type="text" class="form-control" name="nama" value="{{anggota.name}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Alamat</label>
+                                    <textarea name="alamat" rows="3" class="form-control">{{anggota.adress}}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Jenis Kelamin</label>
+                                </div>
+                                <div class="form-group">
+                                    <input required type="radio" name="gender" value="Pria" {% if anggota.gender == 'Pria' %} checked {% endif %}> Pria &nbsp;
+                                    &nbsp; &nbsp;
+                                    <input required type="radio" name="gender" value="Wanita" {% if anggota.gender == 'Wanita' %} checked {% endif %}> Wanita
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="control-label">Tanggal Lahir</label>
+                                    <input required type="text" readonly id="born_date" class="form-control" name="tanggal_lahir" value="{{anggota.born_date}}">
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="" class="control-label">No. HP</label>
+                                    <input required type="text" class="form-control" name="no_hp" value="{{anggota.phone}}">
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="" class="control-label">Panjang Tarikan (Inch)</label>
+                                    <input required type="number" step="any" class="form-control" name="panjang_tarikan" value="{{anggota.draw_length}}">
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="" class="control-label">Posisi Dalam Klub</label>
+                                    <select class="form-control" name="posisi">
+                                        <option value="Anggota" {% if anggota.position == 'Anggota' %}selected{% endif %}>Anggota</option>
+                                        <option value="Coach" {% if anggota.position == 'Coach' %}selected{% endif %}>Coach</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="fileInput" name='picture' type="file" style="display:none;" accept="image/*" />
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success pull-right" style="margin-left: 8px;">Simpan</button>
+                                    <a href="#" class="btn btn-danger pull-right">
+                                        <i class="fa fa-arrow-left"></i> Kembali</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    $('#born_date').datepicker();
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#picture').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#fileInput").change(function () {
+        readURL(this);
+    });
+
+    $("#passwd_change").change(function () {
+        if ($(this).is(':checked')) {
+            $("#password").attr("disabled", false);
+        } else {
+            $("#password").attr("disabled", true);
+        }
+    });
+
+</script> {% endblock%}

@@ -126,6 +126,13 @@ class TestGrafik(models.Model):
     nama = models.CharField(max_length=50, blank=True, null=True) 
     gender =  models.CharField(max_length=50, blank=True, null=True)   
     usia =  models.CharField(max_length=50, blank=True, null=True)   
-    k_busur =  models.CharField(max_length=50, blank=True, null=True)   
+    k_busur =  models.CharField(max_length=50, blank=True, null=True) 
+
+
+
+
+
+  
+    
     
     

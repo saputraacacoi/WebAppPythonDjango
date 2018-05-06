@@ -32,7 +32,6 @@ class UbahClubView(PenClubAccessView):
         template = 'pbdashboard/ubah_club.html'
         data = {
             'citys': CityRegency.objects.all(),
-            
         }
         return render(request, template, data)
 
@@ -44,7 +43,7 @@ class UpdateClubView(PenClubAccessView):
             club.user = request.user
             cityregency = CityRegency.objects.get(pk=request.POST['cityregency'])
             club.cityregency =  cityregency
-            club.name = form.cleaned_data['name']
+            club.name = form.cleaned_data['nama']
             club.register_number = form.cleaned_data['register_number']
             club.since = form.cleaned_data['since']
             club.secretariat = form.cleaned_data['secretariat']
@@ -55,7 +54,7 @@ class UpdateClubView(PenClubAccessView):
                 club.logo = newlogo
             club.save(force_update=True)
 
-            return redirect('pbdashboard:detail')
+            return redirect('pbdashboard:view')
         else:
             return redirect('pbdashboard:edit')
 
@@ -170,6 +169,47 @@ class SaveAnggotaView(PenClubAccessView):
             return redirect('pbdashboard:anggota')
         else:
             return HttpResponse(anggota_form.errors)
+
+class UbahAnggotaView(PenClubAccessView):
+    def get(self, request, pk):
+        template = 'pbdashboard/ubah_anggota.html'
+        data = {
+            'anggota': Anggota.objects.get(pk=pk),
+        }
+        return render(request, template, data)
+
+class UpdateAnggotaView(PenClubAccessView):
+    def post(self, request, pk):
+        anggota = Anggota.objects.get(pk=pk)
+        form = MemberForm(request.POST, request.FILES)
+        user_form = UserForm(request.POST, request.FILES)
+        if form.is_valid():
+            if user_form.is_valid():
+                user = anggota.user
+                user.username = user_form.cleaned_data['user']
+                user.set_password(user_form.cleaned_data['password']) 
+                user.save()
+                anggota.user = user
+
+            anggota.name = form.cleaned_data['nama']
+            anggota.adress = form.cleaned_data['alamat']
+            anggota.gender = form.cleaned_data['gender']
+            anggota.born_date = form.cleaned_data['tanggal_lahir']
+            anggota.phone = form.cleaned_data['no_hp']
+            anggota.draw_length = form.cleaned_data['panjang_tarikan']
+            anggota.position = form.cleaned_data['posisi']
+            newpic = form.cleaned_data.get('picture', None)
+
+            if not newpic == None:
+                    anggota.picture = newpic
+                    
+            anggota.save(force_update=True)
+            
+            return redirect('pbdashboard:detail_anggota',pk=pk)
+        else:
+            return HttpResponse(form.errors)
+
+
 
 class HapusAnggotaView(PenClubAccessView):
     

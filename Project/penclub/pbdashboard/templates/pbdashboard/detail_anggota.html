@@ -20,7 +20,7 @@
                             <div class="col-md-3 col-sm-3">
                                     <img src="{{anggota.picture.url}}" alt="" style="width: 100%; height: auto; border: 1px #d5d8dc solid">
                                     <p style="text-align: center; font-size: 18px; padding-top: 8px;"><b>{{anggota.name}}</b></p>
-                                    <a href="#" class="btn btn-success btn-block" style="margin-bottom: 8px">Ubah Info <i class="fa fa-pencil"></i></a>
+                                    <a href="{% url 'pbdashboard:ubah' anggota.pk %}" class="btn btn-success btn-block" style="margin-bottom: 8px">Ubah Info <i class="fa fa-pencil"></i></a>
                             </div>
                         <div class="col-md-6 col-sm-6">
                             <table class="table table-responsive table-striped table-hover">
